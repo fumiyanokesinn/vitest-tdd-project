@@ -5,11 +5,8 @@ describe('useMoney', () => {
   test('掛け算が正しい', () => {
     const money: Money = useMoney(10);
 
-    const twentyMoney: Money = money.times(2);
-    expect(twentyMoney.amount.value).to.equal(20);
-
-    const thirtyMoney: Money = money.times(3);
-    expect(thirtyMoney.amount.value).to.equal(30);
+    expect(useMoney(20).amount.value).to.equal(money.times(2).amount.value);
+    expect(useMoney(30).amount.value).to.equal(money.times(3).amount.value);
   });
 
   test('同じ金額はイコールになるか', () => {
