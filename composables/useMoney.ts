@@ -2,6 +2,7 @@ export interface Money {
   amount: Ref<number>;
   currency: string;
   times: (number: number) => Money;
+  equals: (money: Money) => boolean;
 }
 
 /**
@@ -19,7 +20,9 @@ const useMoney = (number: number): Money => {
   const times = (timesNumber: number) => {
     return useMoney(amount.value * timesNumber);
   };
-  return { amount, currency: '', times };
+
+  const equals = (money: Money) => amount.value === money.amount.value;
+  return { amount, currency: '', times, equals };
 };
 
 export default useMoney;
