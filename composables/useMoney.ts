@@ -1,7 +1,7 @@
-interface Money {
+export interface Money {
   amount: Ref<number>;
   currency: string;
-  times: (number: number) => void;
+  times: (number: number) => Money;
 }
 
 /**
@@ -17,7 +17,7 @@ const useMoney = (number: number): Money => {
    * @param number
    */
   const times = (timesNumber: number) => {
-    amount.value *= timesNumber;
+    return useMoney(amount.value * timesNumber);
   };
   return { amount, currency: '', times };
 };
