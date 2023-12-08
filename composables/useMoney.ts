@@ -21,6 +21,11 @@ const useMoney = (number: number): Money => {
     return useMoney(amount.value * timesNumber);
   };
 
+  /**
+   * ２つの金額が等しいか
+   * @param money
+   * @return boolean
+   */
   const equals = (money: Money) => amount.value === money.amount.value;
   return { amount, currency: '', times, equals };
 };
