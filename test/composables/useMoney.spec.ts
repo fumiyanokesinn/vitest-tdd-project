@@ -9,7 +9,7 @@ describe('useMoney', () => {
     expect(useMoney(30).amount.value).to.equal(money.times(3).amount.value);
   });
 
-  test('同じ金額はイコールになるか', () => {
+  test('同じ金額はイコールになる', () => {
     const money: Money = useMoney(10);
 
     expect(money.equals(useMoney(10))).toBe(true);
