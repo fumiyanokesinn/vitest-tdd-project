@@ -1,11 +1,16 @@
 import { describe, test, expect } from 'vitest';
-import useDollar, { type Dollar } from '../../composables/useDollar';
+import useDollar, { isDollar, type Dollar } from '../../composables/useDollar';
 
 describe('useMoney', () => {
   test('掛け算が正しい', () => {
     const money: Dollar = useDollar(10);
 
-    expect(useDollar(20).amount.value).to.equal(money.times(2).amount.value);
-    expect(useDollar(30).amount.value).to.equal(money.times(3).amount.value);
+    expect(useDollar(20).amount.value).toEqual(money.times(2).amount.value);
+    expect(useDollar(30).amount.value).toEqual(money.times(3).amount.value);
+  });
+
+  test('フランクはDollar型である', () => {
+    const dollar: Dollar = useDollar(10);
+    expect(isDollar(dollar)).toBe(true);
   });
 });

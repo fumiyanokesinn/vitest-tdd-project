@@ -1,8 +1,17 @@
-import useMoney, { type Money } from './useMoney';
+import useMoney, { isMoney, type Money } from './useMoney';
 
 export interface Franc extends Money {
   times: (number: number) => Franc;
 }
+
+/**
+ * Franc型か判定する
+ * @param arg
+ * @returns boolean
+ */
+export const isFranc = (arg: any): arg is Franc => {
+  return typeof arg.times === 'function' && isMoney(arg);
+};
 
 /**
  * Francを取得する
