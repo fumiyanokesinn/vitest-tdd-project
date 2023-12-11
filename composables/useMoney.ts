@@ -20,19 +20,21 @@ export const isMoney = (arg: any): arg is Money => {
 /**
  * Moneyを取得する
  * @param number
+ * @param currency
  * @returns {Money}
  */
-const useMoney = (number: number): Money => {
+const useMoney = (number: number, currency: string): Money => {
   const amount = ref(number);
-
   /**
    * ２つの金額が等しいか
    * @param money
    * @return boolean
    */
-  const equals = (money: Money) => amount.value === money.amount.value;
+  const equals = (money: Money) => {
+    return amount.value === money.amount.value && currency === money.currency;
+  };
 
-  return { amount, currency: '', equals };
+  return { amount, currency, equals };
 };
 
 export default useMoney;

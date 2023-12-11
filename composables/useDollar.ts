@@ -20,17 +20,16 @@ export const isDollar = (arg: any): arg is Dollar => {
  * @returns {Dollar}
  */
 const useDollar = (number: number): Dollar => {
-  const money = useMoney(number);
-  const currency = DOLLAR_CURRENCY;
+  const money = useMoney(number, DOLLAR_CURRENCY);
 
   /**
    * 金額を乗算する
    * @param number
    */
-  const times = (timesNumber: number) => {
+  const times = (timesNumber: number): Dollar => {
     return useDollar(money.amount.value * timesNumber);
   };
-  return { ...money, currency, times };
+  return { ...money, times };
 };
 
 export default useDollar;

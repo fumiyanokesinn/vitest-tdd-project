@@ -21,18 +21,17 @@ export const isFranc = (arg: any): arg is Franc => {
  * @returns {Franc}
  */
 const useFranc = (number: number): Franc => {
-  const money = useMoney(number);
-  const currency = FRANC_CURRENCY;
+  const money = useMoney(number, FRANC_CURRENCY);
 
   /**
    * 金額を乗算する
    * @param number
    */
-  const times = (timesNumber: number) => {
+  const times = (timesNumber: number): Franc => {
     return useFranc(money.amount.value * timesNumber);
   };
 
-  return { ...money, currency, times };
+  return { ...money, times };
 };
 
 export default useFranc;
