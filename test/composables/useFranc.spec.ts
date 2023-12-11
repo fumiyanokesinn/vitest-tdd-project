@@ -9,8 +9,8 @@ describe('useMoney', () => {
   test('掛け算が正しい', () => {
     const money: Franc = useFranc(10);
 
-    expect(useFranc(20).amount.value).toEqual(money.times(2).amount.value);
-    expect(useFranc(30).amount.value).toEqual(money.times(3).amount.value);
+    expect(useFranc(20).values).toEqual(money.times(2).values);
+    expect(useFranc(30).values).toEqual(money.times(3).values);
   });
 
   test('フランクはFranc型である', () => {
@@ -20,6 +20,6 @@ describe('useMoney', () => {
 
   test('ドルの通過はCHFである', () => {
     const dollar: Franc = useFranc(10);
-    expect(dollar.currency).toBe(FRANC_CURRENCY);
+    expect(dollar.values.currency).toBe(FRANC_CURRENCY);
   });
 });

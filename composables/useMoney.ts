@@ -1,6 +1,10 @@
-export interface Money {
+interface Values {
   amount: Ref<number>;
   currency: string;
+}
+
+export interface Money {
+  values: Values;
   equals: (money: Money) => boolean;
   times: (timesNumber: number) => Money;
 }
@@ -12,8 +16,9 @@ export interface Money {
  */
 export const isMoney = (arg: any): arg is Money => {
   return (
-    typeof arg.amount === 'object' &&
-    typeof arg.currency === 'string' &&
+    typeof arg.values === 'object' &&
+    typeof arg.values.amount === 'object' &&
+    typeof arg.values.currency === 'string' &&
     typeof arg.equals === 'function'
   );
 };
@@ -25,7 +30,7 @@ export const isMoney = (arg: any): arg is Money => {
  * @returns {Money}
  */
 const useMoney = (number: number, currency: string): Money => {
-  const amount = ref(number);
+  const values: Values = { amount: ref(number), currency };
 
   /**
    * ２つの金額が等しいか
@@ -33,7 +38,10 @@ const useMoney = (number: number, currency: string): Money => {
    * @return boolean
    */
   const equals = (money: Money) => {
-    return amount.value === money.amount.value && currency === money.currency;
+    return (
+      values.amount.value === money.values.amount.value &&
+      currency === money.values.currency
+    );
   };
 
   /**
@@ -41,10 +49,10 @@ const useMoney = (number: number, currency: string): Money => {
    * @param number
    */
   const times = (timesNumber: number): Money => {
-    return useMoney(amount.value * timesNumber, currency);
+    return useMoney(values.amount.value * timesNumber, currency);
   };
 
-  return { amount, currency, equals, times };
+  return { values, equals, times };
 };
 
 export default useMoney;

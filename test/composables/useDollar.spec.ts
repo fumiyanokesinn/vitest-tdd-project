@@ -5,8 +5,8 @@ describe('useMoney', () => {
   test('掛け算が正しい', () => {
     const money: Dollar = useDollar(10);
 
-    expect(useDollar(20).amount.value).toEqual(money.times(2).amount.value);
-    expect(useDollar(30).amount.value).toEqual(money.times(3).amount.value);
+    expect(useDollar(20).values).toEqual(money.times(2).values);
+    expect(useDollar(30).values).toEqual(money.times(3).values);
   });
 
   test('ドルはDollar型である', () => {
@@ -16,6 +16,6 @@ describe('useMoney', () => {
 
   test('ドルの通過はUSDである', () => {
     const dollar: Dollar = useDollar(10);
-    expect(dollar.currency).toBe('USD');
+    expect(dollar.values.currency).toBe('USD');
   });
 });
