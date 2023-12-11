@@ -10,7 +10,7 @@ export interface Franc extends Money {}
  * @returns boolean
  */
 export const isFranc = (arg: any): arg is Franc => {
-  return typeof arg.times === 'function' && isMoney(arg);
+  return isMoney(arg);
 };
 
 /**
