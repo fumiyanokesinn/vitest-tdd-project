@@ -2,9 +2,7 @@ import useMoney, { isMoney, type Money } from './useMoney';
 
 export const FRANC_CURRENCY = 'CHF';
 
-export interface Franc extends Money {
-  times: (number: number) => Franc;
-}
+export interface Franc extends Money {}
 
 /**
  * Franc型か判定する
@@ -23,15 +21,7 @@ export const isFranc = (arg: any): arg is Franc => {
 const useFranc = (number: number): Franc => {
   const money = useMoney(number, FRANC_CURRENCY);
 
-  /**
-   * 金額を乗算する
-   * @param number
-   */
-  const times = (timesNumber: number): Franc => {
-    return useFranc(money.amount.value * timesNumber);
-  };
-
-  return { ...money, times };
+  return { ...money };
 };
 
 export default useFranc;

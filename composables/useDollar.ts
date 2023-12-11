@@ -1,9 +1,7 @@
 import useMoney, { isMoney, type Money } from './useMoney';
 
 export const DOLLAR_CURRENCY = 'USD';
-export interface Dollar extends Money {
-  times: (number: number) => Dollar;
-}
+export interface Dollar extends Money {}
 
 /**
  * Dollar型か判定する
@@ -22,14 +20,7 @@ export const isDollar = (arg: any): arg is Dollar => {
 const useDollar = (number: number): Dollar => {
   const money = useMoney(number, DOLLAR_CURRENCY);
 
-  /**
-   * 金額を乗算する
-   * @param number
-   */
-  const times = (timesNumber: number): Dollar => {
-    return useDollar(money.amount.value * timesNumber);
-  };
-  return { ...money, times };
+  return { ...money };
 };
 
 export default useDollar;

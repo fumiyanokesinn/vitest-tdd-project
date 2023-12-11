@@ -2,6 +2,7 @@ export interface Money {
   amount: Ref<number>;
   currency: string;
   equals: (money: Money) => boolean;
+  times: (timesNumber: number) => Money;
 }
 
 /**
@@ -25,6 +26,7 @@ export const isMoney = (arg: any): arg is Money => {
  */
 const useMoney = (number: number, currency: string): Money => {
   const amount = ref(number);
+
   /**
    * ２つの金額が等しいか
    * @param money
@@ -34,7 +36,15 @@ const useMoney = (number: number, currency: string): Money => {
     return amount.value === money.amount.value && currency === money.currency;
   };
 
-  return { amount, currency, equals };
+  /**
+   * 金額を乗算する
+   * @param number
+   */
+  const times = (timesNumber: number): Money => {
+    return useMoney(amount.value * timesNumber, currency);
+  };
+
+  return { amount, currency, equals, times };
 };
 
 export default useMoney;
