@@ -13,6 +13,13 @@ describe('useMoney', () => {
     expect(useDollar(5).equals(useFranc(5))).toBe(false);
   });
 
+  test('掛け算が正しい', () => {
+    const money: Money = useDollar(10);
+
+    expect(useDollar(20).values).toEqual(money.times(2).values);
+    expect(useFranc(30).values).not.toEqual(money.times(3).values);
+  });
+
   test('金額はMoney型である', () => {
     const money: Money = useMoney(10, '');
     expect(isMoney(money)).toBe(true);
