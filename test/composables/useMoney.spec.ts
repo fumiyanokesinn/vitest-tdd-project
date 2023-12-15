@@ -24,4 +24,9 @@ describe('useMoney', () => {
     const money: Money = useMoney(10, '');
     expect(isMoney(money)).toBe(true);
   });
+
+  test('足し算が正しい', () => {
+    const sum: Money = useDollar(5).plus(useDollar(5));
+    expect(useDollar(10).values).toEqual(sum.values);
+  });
 });
