@@ -10,6 +10,7 @@ export interface Money {
   equals: (money: Money) => boolean;
   times: (timesNumber: number) => Money;
   plus: (addend: Money) => Sum;
+  reduce: (to: string) => Money;
 }
 
 /**
@@ -56,10 +57,14 @@ const useMoney = (number: number, currency: string): Money => {
   };
 
   const plus = (addend: Money): Sum => {
-    return useSum({ values, equals, times, plus }, addend);
+    return useSum({ values, equals, times, plus, reduce }, addend);
   };
 
-  return { values, equals, times, plus };
+  const reduce = (to: string): Money => {
+    return useMoney(number, to);
+  };
+
+  return { values, equals, times, plus, reduce };
 };
 
 export default useMoney;

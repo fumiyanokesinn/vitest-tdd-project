@@ -52,4 +52,11 @@ describe('useMoney', () => {
     const seven: Money = useDollar(7);
     expect(reduced.values).toEqual(seven.values);
   });
+
+  test('reduceはMoneyでも動かせる', () => {
+    const one = useDollar(1);
+    const reduced: Money = useBank().reduce(one, 'USD');
+
+    expect(reduced.values).toEqual(useDollar(1).values);
+  });
 });

@@ -1,3 +1,4 @@
+import type { Money } from './useMoney';
 import type { Sum } from './useSum';
 
-export type Expression = Sum;
+export type Expression = Money | Sum;
