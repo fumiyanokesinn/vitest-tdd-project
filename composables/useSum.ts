@@ -1,8 +1,7 @@
-import type { Expression } from './useExpression';
 import type { Money } from './useMoney';
 import useMoney from './useMoney';
 
-export interface Sum extends Expression {
+export interface Sum {
   augend: Money;
   addend: Money;
   reduce: (to: string) => Money;

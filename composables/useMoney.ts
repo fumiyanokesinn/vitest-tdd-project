@@ -1,4 +1,3 @@
-import type { Expression } from './useExpression';
 import useSum, { type Sum } from './useSum';
 
 interface Values {
@@ -6,7 +5,7 @@ interface Values {
   currency: string;
 }
 
-export interface Money extends Expression {
+export interface Money {
   values: Values;
   equals: (money: Money) => boolean;
   times: (timesNumber: number) => Money;
