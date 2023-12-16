@@ -1,4 +1,5 @@
 import type { Expression } from './useExpression';
+import useSum, { type Sum } from './useSum';
 
 interface Values {
   amount: Ref<number>;
@@ -9,7 +10,7 @@ export interface Money extends Expression {
   values: Values;
   equals: (money: Money) => boolean;
   times: (timesNumber: number) => Money;
-  plus: (addend: Money) => Expression;
+  plus: (addend: Money) => Sum;
 }
 
 /**
@@ -55,8 +56,8 @@ const useMoney = (number: number, currency: string): Money => {
     return useMoney(values.amount.value * timesNumber, currency);
   };
 
-  const plus = (addend: Money): Expression => {
-    return useMoney(values.amount.value + addend.values.amount.value, currency);
+  const plus = (addend: Money): Sum => {
+    return useSum({ values, equals, times, plus }, addend);
   };
 
   return { values, equals, times, plus };

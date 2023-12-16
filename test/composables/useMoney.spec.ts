@@ -2,8 +2,9 @@ import { describe, test, expect } from 'vitest';
 import useMoney, { isMoney, type Money } from '../../composables/useMoney';
 import useDollar from '../../composables/useDollar';
 import useFranc from '../../composables/useFranc';
-import { type Expression } from '../../composables/useExpression';
 import useBank from '../../composables/useBank';
+import type { Sum } from '../../composables/useSum';
+import useSum from '../../composables/useSum';
 
 describe('useMoney', () => {
   test('同じ金額はイコールになる', () => {
@@ -29,8 +30,26 @@ describe('useMoney', () => {
 
   test('足し算が正しい', () => {
     const five = useDollar(5);
-    const sum: Expression = five.plus(five);
+    const sum: Sum = five.plus(five);
     const reduced: Money = useBank().reduce(sum, 'USD');
     expect(useDollar(10).values).toEqual(reduced.values);
+  });
+
+  test('足し算はMoneyを返す', () => {
+    const five = useDollar(5);
+    const result: Sum = five.plus(five);
+
+    const sum: Sum = result;
+
+    expect(five).toEqual(sum.augend);
+    expect(five).toEqual(sum.addend);
+  });
+
+  test('reduceは足し算の結果を返す', () => {
+    const sum: Sum = useSum(useDollar(3), useDollar(4));
+    const reduced: Money = useBank().reduce(sum, 'USD');
+
+    const seven: Money = useDollar(7);
+    expect(reduced.values).toEqual(seven.values);
   });
 });
