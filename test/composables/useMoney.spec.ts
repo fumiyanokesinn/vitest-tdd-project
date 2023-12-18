@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest';
 import useMoney, { isMoney, type Money } from '../../composables/useMoney';
 import useDollar from '../../composables/useDollar';
 import useFranc from '../../composables/useFranc';
-import useBank from '../../composables/useBank';
+import useBank, { type Bank } from '../../composables/useBank';
 import type { Sum } from '../../composables/useSum';
 import useSum from '../../composables/useSum';
 
@@ -58,5 +58,14 @@ describe('useMoney', () => {
     const reduced: Money = useBank().reduce(one, 'USD');
 
     expect(reduced.values).toEqual(useDollar(1).values);
+  });
+
+  test('2フランを1ドルに変換したい', () => {
+    const bank: Bank = useBank();
+    bank.addRate('CHF', 'USD', 2);
+
+    const result: Money = bank.reduce(useFranc(2), 'USD');
+
+    expect(result.values).toEqual(useDollar(1).values);
   });
 });

@@ -1,15 +1,16 @@
+import type { Bank } from './useBank';
 import type { Money } from './useMoney';
 import useMoney from './useMoney';
 
 export interface Sum {
   augend: Money;
   addend: Money;
-  reduce: (to: string) => Money;
+  reduce: (bank: Bank, to: string) => Money;
 }
 
 const useSum = (augend: Money, addend: Money): Sum => {
   // 通貨の合計を取得する
-  const reduce = (to: string): Money => {
+  const reduce = (bank: Bank, to: string): Money => {
     const amount: number =
       augend.values.amount.value + addend.values.amount.value;
     return useMoney(amount, to);

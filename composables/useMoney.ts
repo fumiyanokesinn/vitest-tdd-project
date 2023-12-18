@@ -1,3 +1,4 @@
+import type { Bank } from './useBank';
 import useSum, { type Sum } from './useSum';
 
 interface Values {
@@ -10,7 +11,7 @@ export interface Money {
   equals: (money: Money) => boolean;
   times: (timesNumber: number) => Money;
   plus: (addend: Money) => Sum;
-  reduce: (to: string) => Money;
+  reduce: (bank: Bank, to: string) => Money;
 }
 
 /**
@@ -60,8 +61,9 @@ const useMoney = (number: number, currency: string): Money => {
     return useSum({ values, equals, times, plus, reduce }, addend);
   };
 
-  const reduce = (to: string): Money => {
-    return useMoney(number, to);
+  const reduce = (bank: Bank, to: string): Money => {
+    const rate = bank.rate(values.currency, to);
+    return useMoney(number / rate, to);
   };
 
   return { values, equals, times, plus, reduce };
