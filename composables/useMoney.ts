@@ -63,7 +63,7 @@ const useMoney = (number: number, currency: string): Money => {
 
   const reduce = (bank: Bank, to: string): Money => {
     const rate = bank.rate(values.currency, to);
-    return useMoney(number / rate, to);
+    return useMoney(number * rate, to);
   };
 
   return { values, equals, times, plus, reduce };

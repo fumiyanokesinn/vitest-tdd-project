@@ -66,6 +66,10 @@ describe('useMoney', () => {
 
     const result: Money = bank.reduce(useFranc(2), 'USD');
 
-    expect(result.values).toEqual(useDollar(1).values);
+    expect(result.values).toEqual(useDollar(4).values);
+  });
+
+  test('為替が見つからない場合、1になる', () => {
+    expect(useBank().rate('USD', 'USD')).toEqual(1);
   });
 });
