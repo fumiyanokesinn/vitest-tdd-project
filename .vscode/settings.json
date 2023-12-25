@@ -1,4 +1,4 @@
 {
-  "cSpell.words": ["composables", "Nuxt", "nuxtjs", "vuetify"],
+  "cSpell.words": ["composables", "Nuxt", "nuxtjs", "unplugin", "vuetify"],
   "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
