@@ -1,5 +1,6 @@
 import type { Bank } from './useBank';
-import useSum, { type Sum } from './useSum';
+import type { Expression } from './useExpression';
+import useSum from './useSum';
 
 interface Values {
   amount: Ref<number>;
@@ -9,8 +10,8 @@ interface Values {
 export interface Money {
   values: Values;
   equals: (money: Money) => boolean;
-  times: (timesNumber: number) => Money;
-  plus: (addend: Money) => Sum;
+  times: (timesNumber: number) => Expression;
+  plus: (addend: Expression) => Expression;
   reduce: (bank: Bank, to: string) => Money;
 }
 
@@ -53,11 +54,11 @@ const useMoney = (number: number, currency: string): Money => {
    * 金額を乗算する
    * @param number
    */
-  const times = (timesNumber: number): Money => {
+  const times = (timesNumber: number): Expression => {
     return useMoney(values.amount.value * timesNumber, currency);
   };
 
-  const plus = (addend: Money): Sum => {
+  const plus = (addend: Expression): Expression => {
     return useSum({ values, equals, times, plus, reduce }, addend);
   };
 

@@ -5,6 +5,7 @@ import useFranc from '../../composables/useFranc';
 import useBank, { type Bank } from '../../composables/useBank';
 import type { Sum } from '../../composables/useSum';
 import useSum from '../../composables/useSum';
+import type { Expression } from '~/composables/useExpression';
 
 describe('useMoney', () => {
   test('同じ金額はイコールになる', () => {
@@ -19,8 +20,8 @@ describe('useMoney', () => {
   test('掛け算が正しい', () => {
     const money: Money = useDollar(10);
 
-    expect(useDollar(20).values).toEqual(money.times(2).values);
-    expect(useFranc(30).values).not.toEqual(money.times(3).values);
+    expect(useDollar(20).values).toEqual((money.times(2) as Money).values);
+    expect(useFranc(30).values).not.toEqual((money.times(3) as Money).values);
   });
 
   test('金額はMoney型である', () => {
@@ -30,16 +31,16 @@ describe('useMoney', () => {
 
   test('足し算が正しい', () => {
     const five = useDollar(5);
-    const sum: Sum = five.plus(five);
+    const sum: Expression = five.plus(five);
     const reduced: Money = useBank().reduce(sum, 'USD');
     expect(useDollar(10).values).toEqual(reduced.values);
   });
 
   test('足し算はMoneyを返す', () => {
     const five = useDollar(5);
-    const result: Sum = five.plus(five);
+    const result: Expression = five.plus(five);
 
-    const sum: Sum = result;
+    const sum: Sum = result as Sum;
 
     expect(five).toEqual(sum.augend);
     expect(five).toEqual(sum.addend);
@@ -74,8 +75,8 @@ describe('useMoney', () => {
   });
 
   test('$5 + 10 CHF=$10', () => {
-    const fiveBucks = useDollar(5);
-    const tenFrancs = useFranc(10);
+    const fiveBucks: Expression = useDollar(5);
+    const tenFrancs: Expression = useFranc(10);
 
     const bank = useBank();
     bank.addRate('CHF', 'USD', 0.5);
