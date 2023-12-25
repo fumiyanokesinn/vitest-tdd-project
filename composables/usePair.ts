@@ -5,7 +5,7 @@ export interface Pair {
   equals: (object: Pair) => boolean;
 }
 
-const usePair = (from: string, to: string, rate: number): Pair => {
+const usePair = (from: string, to: string, rate: number = 0): Pair => {
   const equals = (object: Pair): boolean => {
     // パラメータ名を "other" に変更
     return from === object.from && to === object.to;

@@ -20,3 +20,4 @@ const useSum = (augend: Money, addend: Money): Sum => {
 };
 
 export default useSum;
+

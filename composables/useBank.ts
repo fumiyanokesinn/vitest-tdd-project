@@ -22,9 +22,10 @@ const useBank = (): Bank => {
     rates.value.push(usePair(from, to, rate));
   };
 
+  // レートを取得する、対象がなければレートは1で返す
   const rate = (from: string, to: string): number => {
     return (
-      rates.value.find((rate) => rate.equals(usePair(from, to, 0)))?.rate ?? 1
+      rates.value.find((rate) => rate.equals(usePair(from, to)))?.rate ?? 1
     );
   };
 
