@@ -62,14 +62,25 @@ describe('useMoney', () => {
 
   test('2フランを1ドルに変換したい', () => {
     const bank: Bank = useBank();
-    bank.addRate('CHF', 'USD', 2);
+    bank.addRate('CHF', 'USD', 0.5);
 
     const result: Money = bank.reduce(useFranc(2), 'USD');
 
-    expect(result.values).toEqual(useDollar(4).values);
+    expect(result.values).toEqual(useDollar(1).values);
   });
 
   test('為替が見つからない場合、1になる', () => {
     expect(useBank().rate('USD', 'USD')).toEqual(1);
+  });
+
+  test('$5 + 10 CHF=$10', () => {
+    const fiveBucks = useDollar(5);
+    const tenFrancs = useFranc(10);
+
+    const bank = useBank();
+    bank.addRate('CHF', 'USD', 0.5);
+
+    const result = bank.reduce(fiveBucks.plus(tenFrancs), 'USD');
+    expect(useDollar(10).values).toEqual(result.values);
   });
 });

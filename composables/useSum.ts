@@ -12,7 +12,8 @@ const useSum = (augend: Money, addend: Money): Sum => {
   // 通貨の合計を取得する
   const reduce = (bank: Bank, to: string): Money => {
     const amount: number =
-      augend.values.amount.value + addend.values.amount.value;
+      augend.reduce(bank, to).values.amount.value +
+      addend.reduce(bank, to).values.amount.value;
     return useMoney(amount, to);
   };
   return { augend, addend, reduce };
